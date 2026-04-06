@@ -1,0 +1,112 @@
+keys:
+  - users:
+      - &stinjul_zentoo age17gj5x2w8c46lepd2j9vj592atxcfpg2dl59vwza4qfdje8yw6vsqh926gr
+      - &stinjul_zennix age13wxydda98nm4lwhhc20qrwyg2740ce7h8h6nx7jpuyekan5xx3cs5v6r5x
+      - &stinjul_wsl age1hux2w96t957ym0m9q3y2hkfljs6mnsmp2sc86lvztf7emtdr29yq9hfae6
+      - &stinjul_nixtop age1syqdhere86l4d87jujju05e0sqqh6nqe5spjtthtnd2z7wvj7vjqv99hfm
+  - hosts:
+      - &zennix age1rn840d595evljgvpyc7sry04q4qjvg3qdnvxflawddvfhhhca96qdgau3k
+      - &wsl age1lmmg0wlql6u48gzdul7qa2nadszaml8tefm5mp5r74yx0c0n7vts8drzcz
+      - &nixtop age1tq2qlwxj8fvc5hsjardwzga536t942mwnx4r8hr9r6k2fa08ra0st8ckvm
+      - &prd_pi_1 age1lnakvaypmsj0fvtcad2hrum34uf5xsk79e8jwredzrg0lud6uukqgg9xv0
+      - &prd_pi_2 age1hk4y2twrzyqh873qc2ezrh64mcy280h2aaj6qtgvfrcryyx4zf8qwws30n
+      - &prd_pi_3 age1l3w3sdwzavmrsrv2getmt5vndgh4930nqjh3d7cl8l9cxr7nqfjs3uyudz
+      - &prd_ms01_1 age12gdh49zhjxqsp7unx3v8tktl5xnufcw2sz8hkx5a0pmterd023tsn9xqu6
+      - &prd_ms01_2 age1kuv7v93gtmuy7utv56gtxe282l3lch8x3f93myyewrq5qn3cn9pszwsvkr
+      - &prd_ms01_3 age1cnt0eqqs8mdvmtr65su5eqp966wrl4ga0t95tzy890kpswf07g8s6vr8st
+      - &mgmt_nuc_1 age1t0g5rxrh3pr85detsnk65396cda79kdynv36tqjdaceujgu5qatq0whnyz
+      - &mgmt_nuc_2 age1jt2pg297jy6jtha5m8q3vqqvsaxl7u6nzvv5wazp0384lnzesv8q9zyf2y
+      - &mgmt_nuc_3 age1sg30569fmhhdd08wad98k8ucnwulvu7nms66jdft5y9ppq6ysswq5uath5
+      - &asrock_big_boy age1l6sa234m595tsgav7fl44x9p5urs00m3rmaqchypz9r9ht3y8a5q9lgvk4
+
+keychains:
+  - stinjul_admin: &stinjul_admin
+      age:
+        - *stinjul_zentoo
+        - *stinjul_zennix
+        - *stinjul_nixtop
+  - all_hosts: &all_hosts
+      age:
+        - *zennix
+        - *wsl
+        - *nixtop
+        - *prd_pi_1
+        - *prd_pi_2
+        - *prd_pi_3
+        - *prd_ms01_1
+        - *prd_ms01_2
+        - *prd_ms01_3
+        - *mgmt_nuc_1
+        - *mgmt_nuc_2
+        - *mgmt_nuc_3
+        - *asrock_big_boy
+  - homelab_prd_pi: &homelab_prd_pi
+      age:
+        - *prd_pi_1
+        - *prd_pi_2
+        - *prd_pi_3
+  - homelab_prd_ms01: &homelab_prd_ms01
+      age:
+        - *prd_ms01_1
+        - *prd_ms01_2
+        - *prd_ms01_3
+  - homelab_mgmt_nuc: &homelab_mgmt_nuc
+      age:
+        - *mgmt_nuc_1
+        - *mgmt_nuc_2
+        - *mgmt_nuc_3
+  - homelab_hosts: &homelab_hosts
+      age:
+        - *prd_pi_1
+        - *prd_pi_2
+        - *prd_pi_3
+        - *prd_ms01_1
+        - *prd_ms01_2
+        - *prd_ms01_3
+        - *mgmt_nuc_1
+        - *mgmt_nuc_2
+        - *mgmt_nuc_3
+        - *asrock_big_boy
+
+creation_rules:
+  - path_regex: modules/users/stinjul/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+          - *all_hosts
+  - path_regex: modules/users/stinjul/desktop/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+          - age:
+              - *zennix
+              - *nixtop
+  - path_regex: modules/hosts/zennix/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+          - age:
+              - *zennix
+  - path_regex: modules/hosts/zennix/users/stinjul/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+  - path_regex: modules/hosts/homelab/profiles-hardware/prd-ms01/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+          - *homelab_prd_ms01
+  - path_regex: modules/hosts/homelab/profiles-hardware/prd-pi/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+          - *homelab_prd_pi
+  - path_regex: modules/hosts/homelab/profiles-hardware/mgmt-nuc/secrets.sops.yaml
+    key_groups:
+      - merge:
+          - *stinjul_admin
+          - *homelab_mgmt_nuc
+#   - path_regex: \.sops\.yaml$
+#     key_groups:
+#       - merge:
+#           - *stinjul_admin

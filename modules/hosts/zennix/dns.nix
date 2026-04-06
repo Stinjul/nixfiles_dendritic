@@ -1,0 +1,22 @@
+{
+  inputs,
+  ...
+}:
+{
+  flake.modules.nixos.zennix = {
+    services.dnsmasq = {
+      enable = true;
+      resolveLocalQueries = true;
+      settings = {
+        # address = [
+        #   "/stinjul.com/192.168.1.59"
+        # ];
+        server = [
+          "/prd.stinjul.com/172.16.200.1"
+          "/mgmt.stinjul.com/172.16.200.1"
+          "/k3s.stinjul.com/172.16.200.1"
+        ];
+      };
+    };
+  };
+}
