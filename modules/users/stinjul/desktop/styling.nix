@@ -41,6 +41,7 @@
       };
       gtk = {
         inherit theme;
+        gtk4.theme = config.gtk.theme;
         font = {
           name = config.fontProfiles.regular.family;
           size = 11;

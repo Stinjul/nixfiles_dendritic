@@ -63,76 +63,94 @@
         ];
         environment.persistence = lib.mkIf (!cfg.enable) (lib.mkForce { });
 
-        boot.initrd.postDeviceCommands =
-          let
-            wipeParams = cfg.wipeScripts.btrfs;
-          in
-          lib.throwIfNot (config.fileSystems."/".fsType == "btrfs")
-            "Trying to use the btrfs wipescript on a non-btrfs filesystem is unsupported and probably a very bad idea!"
-            (
-              lib.mkIf cfg.wipeScripts.btrfs.enable ''
-                mkdir /btrfs_tmp
-                mount ${config.fileSystems."/".device} /btrfs_tmp
-                if [[ -e /btrfs_tmp/root ]]; then
-                    mkdir -p /btrfs_tmp/old_roots
-                    timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
-                    mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
-                fi
-
-                delete_subvolume_recursively() {
-                    IFS=$'\n'
-                    for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
-                        delete_subvolume_recursively "/btrfs_tmp/$i"
-                    done
-                    btrfs subvolume delete "$1"
-                }
-
-                # Forgot we're in busybox, keeping this around for now
-                # cutoff=$(date -d '${toString wipeParams.retention.days} days ago' '+%Y-%m-%d_%H:%M:%S')
-
-                # mapfile -t dirs < <(find /btrfs_tmp/old_roots/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
-
-                # total=''${#dirs[@]}
-
-                # for idx in "''${!dirs[@]}"; do
-                #     dir="''${dirs[$idx]}"
-                #     
-                #     if [[ "$dir" < "$cutoff" || $idx -lt $((total - ${toString wipeParams.retention.atmost})) ]]; then
-                #         delete_subvolume_recursively "/btrfs_tmp/old_roots/$dir"
-                #     fi
-                # done
-                
-                cutoff=$(date -d "@$(( $(date +%s) - ${toString wipeParams.retention.days}*24*60*60 ))" '+%Y-%m-%d_%H:%M:%S')
-
-                tmpfile="$(mktemp)"
-
-                find /btrfs_tmp/old_roots/ -maxdepth 1 -mindepth 1 -type d | \
-                    while IFS= read -r path; do
-                        printf '%s\n' "''${path##*/}"
-                    done | sort > "$tmpfile"
-                
-                total=$(wc -l < "$tmpfile")
-                
-                idx=0
-                
-                while IFS= read -r dir; do
-                    if [ "$dir" \< "$cutoff" ] || [ "$idx" -lt $((total - ${toString wipeParams.retention.atmost})) ]; then
-                        delete_subvolume_recursively "/btrfs_tmp/old_roots/$dir"
+        # boot.initrd.postResumeCommands =
+        boot.initrd.systemd = {
+          services.wipe-root = {
+            wantedBy = [ "initrd-root-device.target" ];
+            wants = [ "lvm2-activation.service" ];
+            after = [
+              "lvm2-activation.service"
+              "local-fs-pre.target"
+            ];
+            before = [ "sysroot.mount" ];
+            unitConfig = {
+              ConditionKernelCommandLine = [ "!resume=" ];
+            };
+            serviceConfig = {
+              Type = "oneshot";
+            };
+            script =
+              let
+                wipeParams = cfg.wipeScripts.btrfs;
+              in
+              lib.throwIfNot (config.fileSystems."/".fsType == "btrfs")
+                "Trying to use the btrfs wipescript on a non-btrfs filesystem is unsupported and probably a very bad idea!"
+                (
+                  lib.mkIf cfg.wipeScripts.btrfs.enable ''
+                    mkdir /btrfs_tmp
+                    mount ${config.fileSystems."/".device} /btrfs_tmp
+                    if [[ -e /btrfs_tmp/root ]]; then
+                        mkdir -p /btrfs_tmp/old_roots
+                        timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
+                        mv /btrfs_tmp/root "/btrfs_tmp/old_roots/$timestamp"
                     fi
-                
-                    idx=$((idx + 1))
-                done < "$tmpfile"
-                
-                rm -f "$tmpfile"
 
-                btrfs subvolume create /btrfs_tmp/root
-                umount /btrfs_tmp
-              ''
-            );
+                    delete_subvolume_recursively() {
+                        IFS=$'\n'
+                        for i in $(btrfs subvolume list -o "$1" | cut -f 9- -d ' '); do
+                            delete_subvolume_recursively "/btrfs_tmp/$i"
+                        done
+                        btrfs subvolume delete "$1"
+                    }
+
+                    # Forgot we're in busybox, keeping this around for now
+                    # cutoff=$(date -d '${toString wipeParams.retention.days} days ago' '+%Y-%m-%d_%H:%M:%S')
+
+                    # mapfile -t dirs < <(find /btrfs_tmp/old_roots/ -maxdepth 1 -mindepth 1 -type d -printf '%f\n' | sort)
+
+                    # total=''${#dirs[@]}
+
+                    # for idx in "''${!dirs[@]}"; do
+                    #     dir="''${dirs[$idx]}"
+                    #     
+                    #     if [[ "$dir" < "$cutoff" || $idx -lt $((total - ${toString wipeParams.retention.atmost})) ]]; then
+                    #         delete_subvolume_recursively "/btrfs_tmp/old_roots/$dir"
+                    #     fi
+                    # done
+
+                    cutoff=$(date -d "@$(( $(date +%s) - ${toString wipeParams.retention.days}*24*60*60 ))" '+%Y-%m-%d_%H:%M:%S')
+
+                    tmpfile="$(mktemp)"
+
+                    find /btrfs_tmp/old_roots/ -maxdepth 1 -mindepth 1 -type d | \
+                        while IFS= read -r path; do
+                            printf '%s\n' "''${path##*/}"
+                        done | sort > "$tmpfile"
+
+                    total=$(wc -l < "$tmpfile")
+
+                    idx=0
+
+                    while IFS= read -r dir; do
+                        if [ "$dir" \< "$cutoff" ] || [ "$idx" -lt $((total - ${toString wipeParams.retention.atmost})) ]; then
+                            delete_subvolume_recursively "/btrfs_tmp/old_roots/$dir"
+                        fi
+
+                        idx=$((idx + 1))
+                    done < "$tmpfile"
+
+                    rm -f "$tmpfile"
+
+                    btrfs subvolume create /btrfs_tmp/root
+                    umount /btrfs_tmp
+                  ''
+                );
+          };
+        };
       };
     };
 
-  # Checking for the existence of home.peristence 
+  # Checking for the existence of home.peristence
   flake.modules.homeManager.impermanence = {
     # Impermanence cannot be used on standalone HM anymore since v2 afaik, so not importing it by default
     # imports = [ inputs.impermanence.homeManagerModules.impermanence ];
