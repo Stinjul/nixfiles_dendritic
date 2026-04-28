@@ -25,6 +25,8 @@
 
             vintagestory
             starsector
+
+            lmstudio
           ];
           home.stateVersion = "23.11";
 
