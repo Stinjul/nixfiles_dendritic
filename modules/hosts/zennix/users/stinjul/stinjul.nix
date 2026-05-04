@@ -43,7 +43,7 @@
             };
           };
           wayland.windowManager.hyprland.settings = {
-            workspace = map (w: "${toString w}, monitor:DP-2,monitor:DP-3") (lib.range 1 10);
+            workspace = map (w: "${toString w}, monitor:DP-3,monitor:DP-2") (lib.range 1 10);
             monitor = map (
               m:
               "${m.name}, ${

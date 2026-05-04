@@ -12,16 +12,16 @@
           width = 2560;
           height = 1440;
           refreshRate = 165;
-          x = 0;
-          rotate = 270;
+          x = 1440;
+          primary = true;
         }
         {
           name = "DP-3";
           width = 2560;
           height = 1440;
           refreshRate = 165;
-          x = 1440;
-          primary = true;
+          x = 0;
+          rotate = 270;
         }
         {
           name = "HDMI-A-1";
