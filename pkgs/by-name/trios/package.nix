@@ -1,22 +1,37 @@
 {
-  flutter332,
+  flutter338,
   # sentry-native,
   fetchFromGitHub,
   lib,
-  stdenv,
+  zlib,
+  runCommand,
+  jdk,
 }:
 
-flutter332.buildFlutterApplication rec {
+let
+  zlib-root = runCommand "zlib-root" { } ''
+    mkdir $out
+    ln -s ${zlib.dev}/include $out/include
+    ln -s ${zlib}/lib $out/lib
+  '';
+in
+flutter338.buildFlutterApplication rec {
   pname = "trios";
-  version = "1.2.3";
+  version = "1.5.1";
 
   src = fetchFromGitHub {
     owner = "wispborne";
     repo = "TriOS";
     rev = version;
-    hash = "sha256-7ljCn6NMi1jifbCYUhiieNt/cMzl31U528o8aJLZR7c=";
+    hash = "sha256-q1Bt2OwUyMWtlN6hM3a1+px64l2L4pi+VAJjKqZIQ0g=";
     fetchSubmodules = true;
   };
+
+  env.ZLIB_ROOT = zlib-root;
+
+  buildInputs = [
+    jdk
+  ];
 
   pubspecLock = lib.importJSON ./pubspec.lock.json;
   gitHashes = {
