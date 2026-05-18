@@ -1,74 +1,72 @@
 # DO-NOT-EDIT. This file was auto-generated using github:vic/flake-file.
 # Use `nix run .#write-flake` to regenerate it.
 {
-
   outputs = inputs: inputs.flake-parts.lib.mkFlake { inherit inputs; } (inputs.import-tree ./modules);
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
     devenv = {
+      url = "github:cachix/devenv";
       inputs = {
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:cachix/devenv";
     };
     devenv-root = {
-      flake = false;
       url = "file+file:///dev/null";
+      flake = false;
     };
     disko = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {
-      inputs.nixpkgs-lib.follows = "nixpkgs";
       url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
     };
     home-manager = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     impermanence = {
+      url = "github:nix-community/impermanence";
       inputs = {
         home-manager.follows = "home-manager";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:nix-community/impermanence";
     };
     import-tree.url = "github:vic/import-tree";
     nixos-hardware.url = "github:nixos/nixos-hardware";
-    nixpkgs.follows = "nixpkgs-unstable";
-    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
+    nixpkgs-stable.url = "https://channels.nixos.org/nixos-25.11/nixexprs.tar.xz";
+    nixpkgs-unstable.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz";
     nixvim = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     pkgs-by-name-for-flake-parts.url = "github:drupol/pkgs-by-name-for-flake-parts";
     quickshell = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "git+https://git.outfoxxed.me/quickshell/quickshell";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
+      url = "github:nix-community/stylix";
       inputs = {
         base16.follows = "base16";
         flake-parts.follows = "flake-parts";
         nixpkgs.follows = "nixpkgs";
       };
-      url = "github:nix-community/stylix";
     };
     systems.url = "github:nix-systems/default";
     tuigreet = {
-      inputs.nixpkgs.follows = "nixpkgs";
       url = "github:NotAShelf/tuigreet";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
 }

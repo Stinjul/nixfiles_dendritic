@@ -73,7 +73,7 @@
             };
             kcl = {
               enable = true;
-              package = inputs'.nixpkgs-stable.legacyPackages.kcl-language-server;
+              package = pkgs.kcl-language-server;
             };
             qmlls.enable = true;
             ts_ls.enable = true;

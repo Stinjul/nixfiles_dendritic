@@ -12,6 +12,7 @@
       home.sessionVariables.EDITOR = "nvim";
       programs.nixvim = {
         enable = lib.mkDefault true;
+        nixpkgs.useGlobalPackages = true;
       };
     };
 }
