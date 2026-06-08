@@ -15,8 +15,8 @@
           # Kaysaar has done it again, a 0.98a-RC8 only special
           # see https://www.ashesofthedomain.info/module/TheoryOfToolbox
           ToT = pkgs.fetchzip {
-            url = "https://github.com/Kaysaar/AoTD-Theory-Of-Toolbox/releases/download/major_release/Ashes.of.The.Domain.-.Theory.of.Toolbox.zip";
-            sha256 = "sha256-Zda1jNfwyyRy8wlUwrIURSziMGZGHBJJt3j9Nc/XJZE=";
+            url = "https://github.com/Kaysaar/AoTD-Theory-Of-Toolbox/releases/download/1.0.8/Ashes.of.The.Domain.-.Theory.of.Toolbox.zip";
+            sha256 = "sha256-JOKZqhSt5WohYZ/vYXTiXFoeVA2qTJpy8tkjSCtBDTI=";
             stripRoot = false;
           };
 
