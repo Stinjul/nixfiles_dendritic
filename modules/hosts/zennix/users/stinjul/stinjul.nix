@@ -26,7 +26,7 @@
             vintagestory
             starsector
 
-            lmstudio
+            llama-cpp
           ];
           home.stateVersion = "23.11";
 
