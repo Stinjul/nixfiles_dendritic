@@ -4,19 +4,26 @@
 }:
 {
   flake.modules.nixos.zennix = {
-    services.dnsmasq = {
-      enable = true;
-      resolveLocalQueries = true;
-      settings = {
-        # address = [
-        #   "/stinjul.com/192.168.1.59"
-        # ];
-        server = [
-          "/prd.stinjul.com/172.16.200.1"
-          "/mgmt.stinjul.com/172.16.200.1"
-          "/k3s.stinjul.com/172.16.200.1"
-        ];
-      };
+    # services.dnsmasq = {
+    #   enable = true;
+    #   resolveLocalQueries = true;
+    #   settings = {
+    #     # address = [
+    #     #   "/stinjul.com/192.168.1.59"
+    #     # ];
+    #     server = [
+    #       "/prd.stinjul.com/172.16.200.1"
+    #       "/mgmt.stinjul.com/172.16.200.1"
+    #       "/k3s.stinjul.com/172.16.200.1"
+    #     ];
+    #   };
+    # };
+    networking.hosts = {
+      "172.16.200.1" = [
+        "prd.stinjul.com"
+        "mgmt.stinjul.com"
+        "k3s.stinjul.com"
+      ];
     };
   };
 }
