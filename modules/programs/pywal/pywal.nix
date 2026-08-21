@@ -28,7 +28,7 @@
       '';
 
       wayland.windowManager.hyprland.extraConfig = mkIf config.wayland.windowManager.hyprland.enable ''
-        source=${config.xdg.cacheHome}/wal/hyprland_colors.conf
+        require("${config.xdg.cacheHome}/wal/hyprland_colors.lua")
       '';
 
       xdg.configFile."k9s/skins/dark.yaml".source = mkIf config.programs.k9s.enable (

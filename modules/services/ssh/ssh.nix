@@ -41,8 +41,8 @@
       programs.ssh = {
         enable = lib.mkDefault true;
         enableDefaultConfig = false;
-        matchBlocks."*" = {
-          userKnownHostsFile = "${persistPath}${config.home.homeDirectory}/.ssh/known_hosts";
+        settings."*" = {
+          UserKnownHostsFile = "${persistPath}${config.home.homeDirectory}/.ssh/known_hosts";
         };
       };
     };

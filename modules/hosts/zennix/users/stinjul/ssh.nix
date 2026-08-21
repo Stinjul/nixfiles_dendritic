@@ -32,31 +32,28 @@
 
         programs.ssh = {
           enable = true;
-          extraConfig = "IdentityFile ${config.sops.secrets.ssh_key_zennix.path}";
-          matchBlocks = {
-            "deploy" = {
-              match = "host 172.16.* user deploy";
-              identityFile = config.sops.secrets.ssh_key_deploy.path;
+          # extraConfig = "IdentityFile ${config.sops.secrets.ssh_key_zennix.path}";
+          settings = {
+            "Match host 172.16.* user deploy" = {
+              IdentityFile = config.sops.secrets.ssh_key_deploy.path;
             };
-            "installer" = {
-              match = "host 172.16.* user nixos";
-              identityFile = [
+            "Match host 172.16.* user nixos" = {
+              IdentityFile = [
                 config.sops.secrets.ssh_key_zennix.path
                 config.sops.secrets.ssh_key_25_809_123.path
                 config.sops.secrets.ssh_key_25_809_126.path
               ];
             };
             "github" = {
-              hostname = "github.com";
-              identityFile = config.sops.secrets.ssh_key_zennix.path;
+              HostName = "github.com";
+              IdentityFile = config.sops.secrets.ssh_key_zennix.path;
             };
             "gitlab" = {
-              hostname = "gitlab.com";
-              identityFile = config.sops.secrets.ssh_key_zennix.path;
+              HostName = "gitlab.com";
+              IdentityFile = config.sops.secrets.ssh_key_zennix.path;
             };
-            "default key" = {
-              host = "*";
-              identityFile = [
+            "*" = {
+              IdentityFile = [
                 config.sops.secrets.ssh_key_zennix.path
                 config.sops.secrets.ssh_key_25_809_123.path
                 config.sops.secrets.ssh_key_25_809_126.path
