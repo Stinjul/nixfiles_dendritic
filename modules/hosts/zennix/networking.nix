@@ -21,6 +21,8 @@
           }
         ];
         allowedUDPPorts = [
+          2456 # Valheim gameport
+          2457 # Valheim server browser/steam port
           37008 # Wireshark TZSP
         ];
       };
