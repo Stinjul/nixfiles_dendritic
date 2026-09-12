@@ -16,7 +16,7 @@
       devenv.shells.default =
         { pkgs, ... }:
         {
-          devenv.cli.version = "1.11.2";
+          # devenv.cli.version = "1.11.2";
           imports = with inputs.self.modules.devenv; [
             default
           ];

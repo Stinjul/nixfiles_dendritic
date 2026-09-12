@@ -64,9 +64,5 @@
       };
     };
     systems.url = "github:nix-systems/default";
-    tuigreet = {
-      url = "github:NotAShelf/tuigreet";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 }
