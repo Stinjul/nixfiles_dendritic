@@ -83,10 +83,10 @@
               let
                 wipeParams = cfg.wipeScripts.btrfs;
               in
-              lib.throwIfNot (config.fileSystems."/".fsType == "btrfs")
-                "Trying to use the btrfs wipescript on a non-btrfs filesystem is unsupported and probably a very bad idea!"
-                (
-                  lib.mkIf cfg.wipeScripts.btrfs.enable ''
+              if wipeParams.enable then
+                lib.throwIfNot (config.fileSystems."/".fsType == "btrfs")
+                  "Trying to use the btrfs wipescript on a non-btrfs filesystem is unsupported and probably a very bad idea!"
+                  ''
                     mkdir /btrfs_tmp
                     mount ${config.fileSystems."/".device} /btrfs_tmp
                     if [[ -e /btrfs_tmp/root ]]; then
@@ -144,7 +144,8 @@
                     btrfs subvolume create /btrfs_tmp/root
                     umount /btrfs_tmp
                   ''
-                );
+              else
+                "";
           };
         };
       };
