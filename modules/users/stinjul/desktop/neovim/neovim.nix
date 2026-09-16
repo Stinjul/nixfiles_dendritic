@@ -33,14 +33,14 @@
         editorconfig.enable = true;
 
         plugins = {
-          treesitter = {
-            enable = true;
-            settings = {
-              highlight = {
-                enable = true;
-              };
-            };
-          };
+          # treesitter = {
+          #   enable = true;
+          #   settings = {
+          #     highlight = {
+          #       enable = true;
+          #     };
+          #   };
+          # };
           lualine = {
             enable = true;
           };
