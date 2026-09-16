@@ -27,10 +27,6 @@
       programs = {
         partition-manager.enable = true;
         nix-ld.enable = true;
-        wireshark = {
-          enable = true;
-          package = pkgs.wireshark;
-        };
       };
 
       services = {
