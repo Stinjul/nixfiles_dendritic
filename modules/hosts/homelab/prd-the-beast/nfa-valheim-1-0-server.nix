@@ -31,7 +31,7 @@
           TZ = "Europe/Brussels";
           PUBLIC = "1";
           AUTO_UPDATE = "1";
-          AUTO_UPDATE_SCHEDULE = "0 1 * * *";
+          AUTO_UPDATE_SCHEDULE = "0 * * * *";
           AUTO_BACKUP = "1";
           AUTO_BACKUP_PAUSE_WITH_NO_PLAYERS = "1";
           AUTO_BACKUP_SCHEDULE = "*/30 * * * *";
