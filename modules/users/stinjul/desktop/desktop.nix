@@ -31,6 +31,7 @@
         mpv
         qt
         r2modman
+        gale
         remmina
         xivlauncher
         prismlauncher
