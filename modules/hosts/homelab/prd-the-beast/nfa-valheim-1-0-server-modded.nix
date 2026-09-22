@@ -49,7 +49,7 @@
         environmentFiles = [
           config.sops.secrets.nfa-valheim-1-0-env.path
         ];
-        # Some people mention a 2458 port?
+        # Some people mention a PORT+2 port?
         # Can't find it in the official docs so no idea, works fine without afaict
         ports = [
           "0.0.0.0:2458:2458/udp"
