@@ -16,6 +16,7 @@
         settings = {
           window_padding = lib.mkDefault 10;
           background_opacity = lib.mkDefault "0.8";
+          remember_window_size = lib.mkDefault "no";
         };
       };
     };
