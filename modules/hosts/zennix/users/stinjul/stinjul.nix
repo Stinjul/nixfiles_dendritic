@@ -20,6 +20,7 @@
             mullvad
             android-tools
             rosec
+            element
 
             hyprland
             rofi
