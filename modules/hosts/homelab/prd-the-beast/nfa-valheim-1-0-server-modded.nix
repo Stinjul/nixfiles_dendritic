@@ -24,7 +24,8 @@
           "/mnt/storage/valheim/nfa-valheim-1-0-modded/backups:/home/steam/backups"
         ];
         environment = {
-          PORT = "2458";
+          PORT = "2456";
+          HTTP_PORT = "3000";
           NAME = "No Crossplay Allowed - Modded Valheim";
           #WORLD = "Debugworld";
           WORLD = "Haustmánuður";
@@ -52,8 +53,9 @@
         # Some people mention a PORT+2 port?
         # Can't find it in the official docs so no idea, works fine without afaict
         ports = [
-          "0.0.0.0:2458:2458/udp"
-          "0.0.0.0:2459:2459/udp"
+          "0.0.0.0:2458:2456/udp"
+          "0.0.0.0:2459:2457/udp"
+          "127.0.0.1::3000/tcp"
         ];
         # extraOptions = [
         #   "--health-cmd=mc-health"
