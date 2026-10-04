@@ -10,6 +10,7 @@
         user-stinjul-desktop
         hyprland
         yubikey-touch-detector
+        rosec
       ];
       home-manager.users.stinjul =
         { config, lib, ... }:
@@ -18,6 +19,7 @@
             chromium
             mullvad
             android-tools
+            rosec
 
             hyprland
             rofi
@@ -31,6 +33,25 @@
           home.stateVersion = "23.11";
 
           sops.defaultSopsFile = ./secrets.sops.yaml;
+          services.rosec = {
+            enable = true;
+            settings = {
+              autolock = {
+                on_session_lock = true;
+              };
+              provider = [
+                {
+                  id = "local";
+                  kind = "local";
+                  # docs seem to be kinda wrong on this, toplevel path is the only option that sets the path correctly
+                  # https://jmylchreest.github.io/rosec/configuration#provideroptions--local-vault-kind--local
+                  # options.path = "${config.xdg.dataHome}/rosec/providers/local.vault";
+                  path = "${config.xdg.dataHome}/rosec/providers/local.vault";
+                }
+              ];
+            };
+          };
+
           home = {
             packages = with pkgs; [
               winbox
