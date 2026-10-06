@@ -1,9 +1,11 @@
 {
   inputs,
+  moduleWithSystem,
   ...
 }:
 {
-  flake.modules.nixos.zennix =
+  flake.modules.nixos.zennix = moduleWithSystem (
+    { self', ... }:
     { pkgs, ... }:
     {
       imports = with inputs.self.modules.nixos; [
@@ -54,9 +56,10 @@
           };
 
           home = {
-            packages = with pkgs; [
-              winbox
-              krita
+            packages = [
+              pkgs.winbox
+              pkgs.krita
+              self'.packages.omp-sandbox
             ];
             persistence.main = {
               directories = [
@@ -83,5 +86,6 @@
             }) (config.monitors);
           };
         };
-    };
+    }
+  );
 }
