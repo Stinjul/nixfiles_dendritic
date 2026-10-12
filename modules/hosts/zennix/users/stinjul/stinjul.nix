@@ -1,11 +1,9 @@
 {
   inputs,
-  moduleWithSystem,
   ...
 }:
 {
-  flake.modules.nixos.zennix = moduleWithSystem (
-    { self', ... }:
+  flake.modules.nixos.zennix =
     { pkgs, ... }:
     {
       imports = with inputs.self.modules.nixos; [
@@ -32,6 +30,7 @@
             starsector
 
             llama-cpp
+            omp
           ];
           home.stateVersion = "23.11";
 
@@ -59,7 +58,7 @@
             packages = [
               pkgs.winbox
               pkgs.krita
-              self'.packages.omp-sandbox
+              # self'.packages.omp-sandbox
             ];
             persistence.main = {
               directories = [
@@ -86,6 +85,5 @@
             }) (config.monitors);
           };
         };
-    }
-  );
+    };
 }
