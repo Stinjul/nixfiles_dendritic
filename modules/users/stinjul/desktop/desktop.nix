@@ -36,6 +36,7 @@
         xivlauncher
         prismlauncher
         termfilechooser
+        user-stinjul-nvim
       ];
       home = {
         packages = with pkgs; [

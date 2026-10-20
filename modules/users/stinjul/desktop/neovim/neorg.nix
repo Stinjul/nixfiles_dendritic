@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.user-stinjul-desktop = {
+  flake.modules.homeManager.user-stinjul-nvim = {
     # TODO: wait for https://github.com/NixOS/nixpkgs/pull/302442
     programs.nixvim.plugins.neorg = {
       enable = true;

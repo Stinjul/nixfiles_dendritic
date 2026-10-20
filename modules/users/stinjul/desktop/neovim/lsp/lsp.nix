@@ -1,6 +1,6 @@
 { moduleWithSystem, ... }:
 {
-  flake.modules.homeManager.user-stinjul-desktop = moduleWithSystem (
+  flake.modules.homeManager.user-stinjul-nvim = moduleWithSystem (
     { inputs', ... }:
     {
       config,

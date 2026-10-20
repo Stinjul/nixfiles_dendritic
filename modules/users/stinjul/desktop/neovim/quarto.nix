@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.user-stinjul-desktop = {
+  flake.modules.homeManager.user-stinjul-nvim = {
     programs.nixvim = {
       files."ftplugin/quarto.lua".keymaps = [
         {

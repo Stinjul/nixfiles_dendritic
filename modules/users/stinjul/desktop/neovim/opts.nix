@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.user-stinjul-desktop = {
+  flake.modules.homeManager.user-stinjul-nvim = {
     programs.nixvim.opts = {
       expandtab = true;
       number = true;

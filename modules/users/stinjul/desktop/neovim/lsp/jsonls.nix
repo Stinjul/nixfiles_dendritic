@@ -1,5 +1,5 @@
 {
-  flake.modules.homeManager.user-stinjul-desktop = {
+  flake.modules.homeManager.user-stinjul-nvim = {
     programs.nixvim.plugins.lsp.servers.jsonls = {
       enable = true;
       extraOptions = {
