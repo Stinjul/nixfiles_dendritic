@@ -27,6 +27,8 @@
           motionEffect = 0;
           notificationShowTimeoutBar = true;
 
+          osdMediaVolumeEnabled = false;
+
           bluetoothMprisEnabled = false;
           windSpeedUnit = "ms";
           useAutoLocation = true;
