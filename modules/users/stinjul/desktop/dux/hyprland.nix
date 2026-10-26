@@ -21,10 +21,11 @@
               mainMod
               "D"
             ]) (exec "dms ipc call spotlight toggle"))
-            # (bind (chord [
-            #   mainMod
-            #   "TAB"
-            # ]) (exec "${menu} -show window"))
+            (bind (chord [
+              mainMod
+              "SHIFT"
+              "X"
+            ]) (exec "dms ipc call lock lock"))
           ];
       };
     };

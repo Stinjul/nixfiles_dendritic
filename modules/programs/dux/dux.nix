@@ -12,7 +12,7 @@
   };
 
   flake.modules.homeManager.dux =
-    { ... }:
+    { config, ... }:
     {
       imports = [
         inputs.dux.homeModules.dank-material-shell
@@ -24,5 +24,16 @@
           systemd.enable = true;
         };
       };
+      xdg.configFile =
+        let
+          version = builtins.concatStringsSep "." (
+            builtins.match "([0-9]+)\\.([0-9]+)\\..*" config.programs.dank-material-shell.package.version
+          );
+        in
+        {
+          "dms/.firstlaunch".text = "";
+          # https://github.com/duxlabs-dev/dux-shell/blob/master/quickshell/Services/ChangelogService.qml#L83
+          "dms/.changelog-${version}".text = "${version}\n";
+        };
     };
 }
