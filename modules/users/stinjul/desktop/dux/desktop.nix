@@ -39,7 +39,7 @@
           osdMediaVolumeEnabled = false;
 
           bluetoothMprisEnabled = false;
-          windSpeedUnit = "ms";
+          windSpeedUnit = "kmh";
           useAutoLocation = true;
           clockFormat = "24h";
           firstDayOfWeek = 1;
@@ -62,6 +62,7 @@
               position = 0;
               widgetStyle = "pills";
               barLengthMode = "full";
+              fontScale = 1.13;
               leftWidgets = [
                 "launcherButton"
                 {
