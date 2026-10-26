@@ -14,6 +14,12 @@
         dux
       ];
       programs.dank-material-shell = {
+        managePluginSettings = true;
+        plugins = {
+          dankKDEConnect = {
+            enable = true;
+          };
+        };
         settings = {
           fontFamily = "Iosevka";
           monoFontFamily = "IosevkaTerm Nerd Font Mono";
@@ -75,6 +81,10 @@
                 "weather"
               ];
               rightWidgets = [
+                {
+                  id = "dankKDEConnect";
+                  enabled = true;
+                }
                 "systemTray"
                 "clipboard"
                 "cpuUsage"

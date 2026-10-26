@@ -220,6 +220,26 @@
         "type": "github"
       }
     },
+    "dux-plugin-registry": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1792952072,
+        "narHash": "sha256-eK0BztGcriE1vNpnckak9fhhzl9S673+DA/6ifqwfIw=",
+        "owner": "duxlabs-dev",
+        "repo": "dux-plugin-registry",
+        "rev": "66afb3fae41a62a24e8558d11a31842bcd9e0135",
+        "type": "github"
+      },
+      "original": {
+        "owner": "duxlabs-dev",
+        "repo": "dux-plugin-registry",
+        "type": "github"
+      }
+    },
     "firefox-gnome-theme": {
       "flake": false,
       "locked": {
@@ -688,6 +708,7 @@
         "devenv-root": "devenv-root",
         "disko": "disko",
         "dux": "dux",
+        "dux-plugin-registry": "dux-plugin-registry",
         "flake-aspects": "flake-aspects",
         "flake-file": "flake-file",
         "flake-parts": "flake-parts",

@@ -24,6 +24,10 @@
       url = "github:duxlabs-dev/dux-shell/stable";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    dux-plugin-registry = {
+      url = "github:duxlabs-dev/dux-plugin-registry";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-aspects.url = "github:vic/flake-aspects";
     flake-file.url = "github:vic/flake-file";
     flake-parts = {

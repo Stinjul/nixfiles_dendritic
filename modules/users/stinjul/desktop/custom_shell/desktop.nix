@@ -13,6 +13,9 @@
       imports = with inputs.self.modules.homeManager; [
         termfilechooser
       ];
+      services.kdeconnect = {
+        indicator = true;
+      };
       xdg.portal.termfilechooser = {
         enable = true;
         settings = {
