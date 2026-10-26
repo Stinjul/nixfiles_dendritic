@@ -30,5 +30,11 @@
         qt5ctSettings.Appearance.color_scheme_path = "${config.xdg.configHome}/qt5ct/colors/matugen.conf";
         qt6ctSettings.Appearance.color_scheme_path = "${config.xdg.configHome}/qt6ct/colors/matugen.conf";
       };
+      home.persistence.main = {
+        files = [
+          ".config/hypr/dms/cursor.lua"
+          ".config/hypr/dms/colors.lua"
+        ];
+      };
     };
 }
