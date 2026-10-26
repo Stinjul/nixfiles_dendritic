@@ -16,6 +16,8 @@
         { config, lib, ... }:
         {
           imports = with inputs.self.modules.homeManager; [
+            user-stinjul-desktop-dux
+
             chromium
             mullvad
             android-tools
@@ -24,7 +26,8 @@
 
             hyprland
             rofi
-            quickshell
+            # quickshell
+            # dux
 
             vintagestory
             starsector

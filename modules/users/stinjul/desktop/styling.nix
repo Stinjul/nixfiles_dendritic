@@ -1,15 +1,13 @@
-{
-  inputs,
-  self,
-  ...
-}:
+{ inputs, ... }:
 {
   flake.modules.nixos.user-stinjul-desktop = {
+    imports = with inputs.self.modules.nixos; [
+      gtk
+    ];
   };
   flake.modules.homeManager.user-stinjul-desktop =
     {
       pkgs,
-      lib,
       config,
       ...
     }:
@@ -21,7 +19,8 @@
     in
     {
       imports = with inputs.self.modules.homeManager; [
-        pywal
+        gtk
+        qt
       ];
       fontProfiles = {
         enable = true;
@@ -45,6 +44,10 @@
         font = {
           name = config.fontProfiles.regular.family;
           size = 11;
+        };
+        iconTheme = {
+          name = "Papirus-Dark";
+          package = pkgs.papirus-icon-theme;
         };
       };
       dconf.settings = {

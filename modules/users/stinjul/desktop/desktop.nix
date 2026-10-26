@@ -29,13 +29,11 @@
         kdeconnect
         mpd
         mpv
-        qt
         r2modman
         gale
         remmina
         xivlauncher
         prismlauncher
-        termfilechooser
         user-stinjul-nvim
       ];
       home = {
@@ -60,16 +58,6 @@
         secrets = {
           ssh_key_25_809_123.sopsFile = ./secrets.sops.yaml;
           ssh_key_25_809_126.sopsFile = ./secrets.sops.yaml;
-        };
-      };
-      xdg.portal.termfilechooser = {
-        enable = true;
-        settings = {
-          filechooser = {
-            cmd = "${config.xdg.portal.termfilechooser.package}/share/xdg-desktop-portal-termfilechooser/yazi-wrapper.sh";
-            env = "TERMCMD=${config.home.sessionVariables.TERMINAL}";
-            default_dir = "$HOME";
-          };
         };
       };
     };

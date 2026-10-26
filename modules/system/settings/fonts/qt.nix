@@ -48,7 +48,7 @@
 
       qt5ctConf = lib.recursiveUpdate qtctBaseConf {
         Appearance = {
-          color_scheme_path = "${pkgs.libsForQt5.qt5ct}/share/qt5ct/colors/darker.conf";
+          color_scheme_path = lib.mkDefault "${pkgs.libsForQt5.qt5ct}/share/qt5ct/colors/darker.conf";
         };
         Fonts = {
           general = ''"${generalFont.qt5String}"'';
@@ -57,7 +57,7 @@
       };
       qt6ctConf = lib.recursiveUpdate qtctBaseConf {
         Appearance = {
-          color_scheme_path = "${pkgs.kdePackages.qt6ct}/share/qt6ct/colors/darker.conf";
+          color_scheme_path = lib.mkDefault "${pkgs.kdePackages.qt6ct}/share/qt6ct/colors/darker.conf";
         };
         Fonts = {
           general = ''"${generalFont.qt6String}"'';
