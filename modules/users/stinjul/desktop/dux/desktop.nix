@@ -19,6 +19,9 @@
           dankKDEConnect = {
             enable = true;
           };
+          dankHyprlandWindows = {
+            enable = true;
+          };
         };
         settings = {
           fontFamily = "Iosevka";

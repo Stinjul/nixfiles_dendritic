@@ -25,7 +25,6 @@
             moveworkspace = dir: ''hl.dsp.workspace.move({ monitor = "${dir}" })'';
 
             terminal = config.home.sessionVariables.TERMINAL;
-            menu = "rofi";
 
             mainMod = "SUPER";
           in
@@ -54,15 +53,6 @@
               "SHIFT"
               "SPACE"
             ]) "hl.dsp.window.float()")
-
-            (bind (chord [
-              mainMod
-              "D"
-            ]) (exec "${menu} -show run"))
-            (bind (chord [
-              mainMod
-              "TAB"
-            ]) (exec "${menu} -show window"))
 
             (bind (chord [
               mainMod
