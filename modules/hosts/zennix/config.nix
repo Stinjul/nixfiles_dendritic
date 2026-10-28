@@ -34,6 +34,10 @@
           enable = true;
           plugins = [ pkgs.libacr38u ];
         };
+        # ACR38 usb reader
+        udev.extraRules = ''
+          ATTRS{idVendor}=="072f", ATTRS{idProduct}=="9000", GROUP="pcscd"
+        '';
         gvfs.enable = true;
         blueman.enable = true;
       };
