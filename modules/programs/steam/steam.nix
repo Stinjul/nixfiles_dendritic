@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, moduleWithSystem, ... }:
 {
   flake.modules.nixos.steam =
     { pkgs, lib, ... }:
@@ -21,12 +21,14 @@
         };
       };
     };
-  flake.modules.homeManager.steam =
-    { pkgs, lib, ... }:
+  flake.modules.homeManager.steam = moduleWithSystem (
+    { self', ... }:
+    { pkgs, ... }:
     {
-      home.packages = with pkgs; [
-        yafc-ce
-        mangohud
+      home.packages = [
+        self'.packages.yafc-ce
+        pkgs.mangohud
       ];
-    };
+    }
+  );
 }
