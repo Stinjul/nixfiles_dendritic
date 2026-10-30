@@ -61,6 +61,7 @@
             packages = [
               pkgs.winbox
               pkgs.krita
+              pkgs.python3
               # self'.packages.omp-sandbox
             ];
             persistence.main = {
