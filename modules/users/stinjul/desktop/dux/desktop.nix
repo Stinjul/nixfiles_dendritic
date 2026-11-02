@@ -54,6 +54,18 @@
             size = 24;
           };
 
+          notificationRules = [
+            {
+              enabled = true;
+              field = "appName";
+              pattern = "chromium";
+              matchType = "contains";
+              action = "default";
+              urgency = "normal";
+              bypassDnd = false;
+            }
+          ];
+
           barConfigs = [
             {
               id = "default";
