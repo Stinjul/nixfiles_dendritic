@@ -1,10 +1,13 @@
 {
   lib,
+  makeDesktopItem,
 
   # Build
   buildDotnetModule,
   fetchFromGitHub,
   dotnetCorePackages,
+  icoutils,
+  copyDesktopItems,
 
   # Runtime
   SDL2,
@@ -17,7 +20,7 @@
 let
   dotnet = dotnetCorePackages.dotnet_10;
 in
-buildDotnetModule (finalAttrs: {
+buildDotnetModule (finalAttrs: rec {
   pname = "yafc-ce";
   version = "2.21.0";
 
@@ -47,6 +50,29 @@ buildDotnetModule (finalAttrs: {
   ];
 
   passthru.updateScript = nix-update-script { };
+
+  nativeBuildInputs = [
+    copyDesktopItems
+    icoutils
+  ];
+
+  postInstall = ''
+    icotool --icon -x Yafc/image.ico
+    install -Dm444 image_1_64x64x32.png $out/share/icons/hicolor/64x64/apps/yafc-ce.png
+  '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = pname;
+      desktopName = "YAFC: Community Edition";
+      genericName = "Factorio calculator";
+      comment = meta.description;
+      exec = "Yafc";
+      icon = "yafc-ce";
+      categories = [ "Game" ];
+      startupWMClass = pname;
+    })
+  ];
 
   meta = {
     description = "Powerful Factorio calculator/analyser that works with mods, Community Edition";
