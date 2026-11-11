@@ -4,7 +4,7 @@
 }:
 {
   flake.modules.homeManager.user-stinjul-desktop =
-    { config, ... }:
+    { config, lib, ... }:
     {
       wayland.windowManager.hyprland.settings = {
         window_rule = [
@@ -55,9 +55,26 @@
           {
             workspace = "special:scratchpad";
             gaps_out = 20;
-            on_created_empty = "${config.home.sessionVariables.TERMINAL} --class dropdown --session ~/.config/kitty/scratchpad.session --instance-group scratchpad --override background_opacity=1";
           }
         ];
+        on =
+          let
+            lua = lib.generators.mkLuaInline;
+          in
+          [
+            {
+              _args = [
+                "workspace.created"
+                (lua ''
+                  function(ws)
+                    if ws.name == "special:scratchpad" and ws.is_empty then
+                        hl.exec_cmd("${config.home.sessionVariables.TERMINAL} --class dropdown --session ~/.config/kitty/scratchpad.session --instance-group scratchpad --override background_opacity=1", { workspace = ws.addressable_name.." silent" })
+                    end
+                  end
+                '')
+              ];
+            }
+          ];
       };
     };
 }
