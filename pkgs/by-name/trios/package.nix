@@ -1,8 +1,10 @@
 {
-  flutter347,
-  # sentry-native,
-  fetchFromGitHub,
   lib,
+  makeDesktopItem,
+  copyDesktopItems,
+
+  flutter347,
+  fetchFromGitHub,
   zlib,
   runCommand,
   jdk,
@@ -29,6 +31,8 @@ flutter347.buildFlutterApplication rec {
 
   env.ZLIB_ROOT = zlib-root;
 
+  nativeBuildInputs = [ copyDesktopItems ];
+
   buildInputs = [
     jdk
   ];
@@ -42,5 +46,20 @@ flutter347.buildFlutterApplication rec {
 
   postInstall = ''
     chmod +x $out/app/trios/data/flutter_assets/assets/linux/7zip/x64/7zzs
+    install -Dm444 $out/app/trios/data/flutter_assets/assets/images/telos_faction_crest.png $out/share/icons/hicolor/128x128/apps/trios.png
+    install -Dm444 $out/app/trios/data/flutter_assets/assets/images/telos_faction_crest.svg $out/share/icons/hicolor/scalable/apps/trios.svg
   '';
+
+  desktopItems = [
+    (makeDesktopItem {
+      name = pname;
+      desktopName = "TriOS";
+      genericName = "Mod Manager";
+      comment = "Starsector mod manager & toolkit.";
+      exec = "TriOS";
+      icon = "trios";
+      categories = [ "Game" ];
+      startupWMClass = pname;
+    })
+  ];
 }
