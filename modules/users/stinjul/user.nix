@@ -58,11 +58,25 @@
           # ];
           programs.git.enable = true;
 
+          sops = {
+            secrets.nix-gh-pat = {
+              sopsFile = ./secrets.sops.yaml;
+            };
+            templates.nix-gh-pat = {
+              content = ''
+                access-tokens = github.com=${config.sops.placeholder.nix-gh-pat}
+              '';
+            };
+          };
+
           nix = {
             gc = {
               automatic = true;
               dates = "weekly";
             };
+            extraOptions = ''
+              !include ${config.sops.templates.nix-gh-pat.path}
+            '';
           };
           systemd.user.services.nix-gc.Service.ExecStart = lib.mkForce (
             pkgs.writeShellScript "nix-gc" ''

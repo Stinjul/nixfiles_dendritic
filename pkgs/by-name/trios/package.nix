@@ -1,5 +1,5 @@
 {
-  flutter338,
+  flutter347,
   # sentry-native,
   fetchFromGitHub,
   lib,
@@ -15,15 +15,15 @@ let
     ln -s ${zlib}/lib $out/lib
   '';
 in
-flutter338.buildFlutterApplication rec {
+flutter347.buildFlutterApplication rec {
   pname = "trios";
-  version = "1.5.1";
+  version = "1.7.0";
 
   src = fetchFromGitHub {
     owner = "wispborne";
     repo = "TriOS";
     rev = version;
-    hash = "sha256-q1Bt2OwUyMWtlN6hM3a1+px64l2L4pi+VAJjKqZIQ0g=";
+    hash = "sha256-x1yY03Cc4b4nj252BAgqnZhsii637SiAeYS82rzYt+0=";
     fetchSubmodules = true;
   };
 
@@ -37,6 +37,7 @@ flutter338.buildFlutterApplication rec {
   gitHashes = {
     open_filex = "sha256-U6h3yAw0L7ZoQdviAz9YRuHBy9TwGVLQiRTH+Hl9R0g=";
     window_size = "sha256-Y113BPSxlNnera/3Dq2BYAX1YiGbCrVgJsfClnLNhjk=";
+    irondash_engine_context = "sha256-uCmpMcIcqwaGkUEL7gzbM+5HGBpSXzOGw98XHI29EiM=";
   };
 
   postInstall = ''

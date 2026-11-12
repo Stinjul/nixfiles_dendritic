@@ -1,6 +1,9 @@
 {
   flake-file.inputs = {
-    base16.url = "github:SenchoPens/base16.nix";
+    base16 = {
+      url = "github:SenchoPens/base16.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:nix-community/stylix";
       inputs.base16.follows = "base16";
